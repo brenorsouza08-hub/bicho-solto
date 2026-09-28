@@ -1,0 +1,47 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  align?: 'start' | 'center';
+  tone?: 'default' | 'light';
+  id?: string;
+  as?: 'h1' | 'h2';
+}
+
+const { eyebrow, title, text, align = 'start', tone = 'default', id, as: Tag = 'h2' } = Astro.props;
+---
+
+<header class:list={['heading', `heading--${align}`, `heading--${tone}`]} data-reveal>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <Tag class="heading__title" id={id}>{title}</Tag>
+  {text && <p class="heading__text">{text}</p>}
+  <slot />
+</header>
+
+<style>
+  .heading {
+    display: grid;
+    gap: 1.1rem;
+    max-width: 44rem;
+  }
+  .heading--center {
+    margin-inline: auto;
+    text-align: center;
+    justify-items: center;
+  }
+  .heading__title {
+    font-size: var(--fs-h2);
+  }
+  .heading__text {
+    font-size: var(--fs-lead);
+    color: var(--c-muted);
+    max-width: 38rem;
+  }
+  .heading--light .heading__title {
+    color: var(--c-cream);
+  }
+  .heading--light .heading__text {
+    color: rgb(246 242 234 / 0.75);
+  }
+</style>

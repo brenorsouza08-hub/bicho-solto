@@ -1,0 +1,246 @@
+---
+import { navigation } from '../../config/site';
+import { whatsappLink } from '../../lib/whatsapp';
+import Button from '../ui/Button.astro';
+import Logo from '../ui/Logo.astro';
+---
+
+<header class="header" data-header>
+  <div class="header__inner container">
+    <Logo />
+
+    <nav class="nav" aria-label="Menu principal">
+      <ul class="nav__list" id="menu-principal" data-menu>
+        {
+          navigation.map((item, index) => (
+            <li style={`--i: ${index}`}>
+              <a href={item.href} class="nav__link" data-nav-link>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="nav__mobile-cta" style={`--i: ${navigation.length}`}>
+          <Button href={whatsappLink('geral')} icon="whatsapp" size="lg">
+            Agendar atendimento
+          </Button>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <Button href={whatsappLink('geral')} icon="whatsapp" class="header__cta">
+        Agendar atendimento
+      </Button>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-principal"
+        aria-label="Abrir menu"
+        data-menu-toggle
+      >
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    height: var(--header-h);
+    transition:
+      background-color var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out),
+      backdrop-filter var(--dur) var(--ease-out);
+  }
+
+  .header.is-scrolled,
+  .header.is-menu-open {
+    background: rgb(246 242 234 / 0.86);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    box-shadow: 0 1px 0 var(--c-line);
+  }
+
+  .header__inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Mobile first: menu em tela cheia ------------------------------------ */
+  .nav__list {
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 2rem var(--gutter) calc(2rem + env(safe-area-inset-bottom));
+    list-style: none;
+    background: var(--c-cream);
+    overflow-y: auto;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      visibility 0s linear var(--dur);
+  }
+
+  .header.is-menu-open .nav__list {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .nav__list > li {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.5s var(--ease-out),
+      transform 0.5s var(--ease-out);
+  }
+
+  .header.is-menu-open .nav__list > li {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(60ms + var(--i) * 45ms);
+  }
+
+  .nav__link {
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+    border-bottom: 1px solid var(--c-line);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--c-forest);
+    text-decoration: none;
+  }
+
+  .nav__mobile-cta {
+    margin-top: 2rem;
+  }
+  .nav__mobile-cta :global(.btn) {
+    width: 100%;
+  }
+
+  .header__actions :global(.header__cta) {
+    display: none;
+  }
+
+  .menu-toggle {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--c-line-strong);
+    border-radius: 50%;
+    background: transparent;
+    display: grid;
+    place-content: center;
+    gap: 6px;
+  }
+
+  .menu-toggle__bar {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--c-forest);
+    border-radius: 2px;
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .menu-toggle[aria-expanded='true'] .menu-toggle__bar:first-child {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+  .menu-toggle[aria-expanded='true'] .menu-toggle__bar:last-child {
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+
+  @media (min-width: 640px) {
+    .header__actions :global(.header__cta) {
+      display: inline-flex;
+      width: auto;
+    }
+  }
+
+  /* Desktop ------------------------------------------------------------- */
+  @media (min-width: 1024px) {
+    .nav__list {
+      position: static;
+      flex-direction: row;
+      gap: 0.35rem;
+      padding: 0;
+      background: none;
+      overflow: visible;
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .nav__list > li {
+      opacity: 1;
+      transform: none;
+    }
+
+    .nav__link {
+      position: relative;
+      min-height: 44px;
+      padding-inline: 0.85rem;
+      border: 0;
+      font-family: var(--font-body);
+      font-size: 0.925rem;
+      font-weight: 500;
+      color: var(--c-ink);
+      transition: color var(--dur) var(--ease-out);
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      left: 0.85rem;
+      right: 0.85rem;
+      bottom: 8px;
+      height: 1px;
+      background: var(--c-sand-strong);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--dur) var(--ease-out);
+    }
+
+    .nav__link:hover,
+    .nav__link:global(.is-active) {
+      color: var(--c-primary);
+    }
+
+    .nav__link:hover::after,
+    .nav__link:global(.is-active)::after {
+      transform: scaleX(1);
+    }
+
+    .nav__mobile-cta,
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+  :global(body.menu-open) {
+    overflow: hidden;
+  }
+</style>

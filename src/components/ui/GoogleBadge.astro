@@ -1,0 +1,74 @@
+---
+import { links, site } from '../../config/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  variant?: 'card' | 'inline';
+}
+
+const { variant = 'card' } = Astro.props;
+---
+
+<a
+  href={links.googleReviews}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={['gbadge', `gbadge--${variant}`]}
+  aria-label={`${site.googleReviewsCount} avaliações no Google — ver avaliações`}
+>
+  <span class="gbadge__logo">
+    <Icon name="google" size={20} />
+  </span>
+  <span class="gbadge__text">
+    <strong>{site.googleReviewsCount} avaliações</strong>
+    <span>no Google</span>
+  </span>
+</a>
+
+<style>
+  .gbadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none;
+    color: var(--c-forest);
+  }
+
+  .gbadge--card {
+    padding: 0.85rem 1.25rem 0.85rem 0.85rem;
+    border-radius: var(--radius);
+    background: var(--c-white);
+    box-shadow: var(--shadow);
+    transition:
+      transform var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out);
+  }
+  .gbadge--card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .gbadge__logo {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--c-cream);
+    color: var(--c-primary);
+  }
+
+  .gbadge__text {
+    display: grid;
+    line-height: 1.2;
+    font-size: var(--fs-small);
+    color: var(--c-muted);
+  }
+
+  .gbadge__text strong {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--c-forest);
+  }
+</style>

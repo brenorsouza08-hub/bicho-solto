@@ -1,0 +1,148 @@
+---
+import { experienceSteps } from '../../data/content';
+import SectionHeading from '../ui/SectionHeading.astro';
+---
+
+<section class="section experience" aria-labelledby="experiencia-title">
+  <div class="container">
+    <SectionHeading id="experiencia-title" eyebrow="A experiência" title="Cuidado em cada detalhe." />
+
+    <ol class="steps">
+      {
+        experienceSteps.map((step, index) => (
+          <li class="step" data-reveal style={`--reveal-delay: ${index * 110}ms`}>
+            <span class="step__marker" aria-hidden="true">
+              <span class="step__dot" />
+            </span>
+            <span class="step__number">{step.number}</span>
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__text">{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .experience {
+    background: var(--c-beige);
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+    display: grid;
+    gap: 0;
+    counter-reset: step;
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    grid-template-areas:
+      'marker number'
+      'marker title'
+      'marker text';
+    column-gap: 1.25rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .step:last-child {
+    padding-bottom: 0;
+  }
+
+  .step__marker {
+    grid-area: marker;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .step__marker::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    bottom: -2.5rem;
+    left: 50%;
+    width: 1px;
+    background: var(--c-line-strong);
+  }
+
+  .step:last-child .step__marker::before {
+    display: none;
+  }
+
+  .step__dot {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    margin-top: 8px;
+    border-radius: 50%;
+    background: var(--c-beige);
+    border: 1.5px solid var(--c-primary);
+    transition: background-color var(--dur) var(--ease-out);
+  }
+
+  .step:hover .step__dot {
+    background: var(--c-sand);
+  }
+
+  .step__number {
+    grid-area: number;
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    line-height: 1;
+    font-weight: 300;
+    color: var(--c-sand-strong);
+  }
+
+  .step__title {
+    grid-area: title;
+    margin-top: 0.8rem;
+  }
+
+  .step__text {
+    grid-area: text;
+    margin-top: 0.5rem;
+    color: var(--c-muted);
+    max-width: 22rem;
+  }
+
+  @media (min-width: 900px) {
+    .steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2rem;
+    }
+
+    .step {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'marker'
+        'number'
+        'title'
+        'text';
+      padding-bottom: 0;
+    }
+
+    .step__marker {
+      justify-content: flex-start;
+      margin-bottom: 1.75rem;
+    }
+
+    .step__marker::before {
+      top: 50%;
+      bottom: auto;
+      left: 14px;
+      right: -2rem;
+      width: auto;
+      height: 1px;
+    }
+
+    .step__dot {
+      margin-top: 0;
+    }
+  }
+</style>

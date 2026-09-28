@@ -1,0 +1,105 @@
+---
+import { site } from '../../config/site';
+import { images } from '../../data/images';
+import { whatsappLink } from '../../lib/whatsapp';
+import Button from '../ui/Button.astro';
+import Media from '../ui/Media.astro';
+---
+
+<section class="cta-section" aria-labelledby="cta-title">
+  <div class="container">
+    <div class="cta" data-reveal="zoom">
+      <div class="cta__content">
+        <p class="eyebrow cta__eyebrow">Vamos conversar</p>
+        <h2 class="cta__title" id="cta-title">
+          Seu pet merece ser cuidado por quem <em>entende de cuidado.</em>
+        </h2>
+        <p class="cta__text">
+          Entre em contato com a {site.fullName} e conheça nossos serviços.
+        </p>
+        <div class="cta__actions">
+          <Button href={whatsappLink('geral')} variant="light" size="lg" icon="whatsapp">
+            Falar pelo WhatsApp
+          </Button>
+          <Button href={site.social.instagram} variant="outline-light" size="lg" icon="instagram">
+            Conhecer o Instagram
+          </Button>
+        </div>
+      </div>
+      <div class="cta__visual">
+        <Media image={images.cta} class="cta__media" sizes="(min-width: 1024px) 40vw, 100vw" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding-block: 0 var(--section-y);
+  }
+
+  .cta {
+    position: relative;
+    display: grid;
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(70% 90% at 0% 0%, rgb(200 169 106 / 0.18), transparent 60%),
+      var(--c-primary);
+    color: var(--c-cream);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cta__content {
+    display: grid;
+    gap: 1.4rem;
+    justify-items: start;
+    padding: clamp(2.25rem, 6vw, 5rem);
+  }
+
+  .cta__eyebrow {
+    color: var(--c-sand);
+  }
+
+  .cta__title {
+    font-size: var(--fs-h2);
+    color: var(--c-cream);
+    max-width: 16ch;
+  }
+
+  .cta__title em {
+    color: var(--c-sand);
+  }
+
+  .cta__text {
+    font-size: var(--fs-lead);
+    color: rgb(246 242 234 / 0.78);
+    max-width: 32rem;
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  .cta__visual {
+    min-height: 280px;
+  }
+
+  .cta__visual :global(.cta__media) {
+    height: 100%;
+    min-height: 280px;
+  }
+
+  @media (min-width: 1024px) {
+    .cta {
+      grid-template-columns: 1.25fr 0.75fr;
+    }
+    .cta__visual :global(.cta__media) {
+      border-radius: 240px 0 0 0;
+    }
+  }
+</style>

@@ -1,0 +1,98 @@
+---
+/**
+ * Imagem responsiva com fallback elegante.
+ * - Fotos do Unsplash recebem srcset automático.
+ * - Fotos locais (/images/...) são usadas como estão.
+ * - Se a imagem falhar, exibe um fundo com o rótulo — o layout não quebra.
+ */
+import type { SiteImage } from '../../data/images';
+import Icon from './Icon.astro';
+
+interface Props {
+  image: SiteImage;
+  sizes?: string;
+  ratio?: string;
+  eager?: boolean;
+  class?: string;
+  widths?: number[];
+}
+
+const {
+  image,
+  sizes = '100vw',
+  ratio,
+  eager = false,
+  class: className,
+  widths = [480, 800, 1200, 1600],
+} = Astro.props;
+
+const isUnsplash = image.src.includes('images.unsplash.com');
+const build = (w: number) => `${image.src}?auto=format&fit=crop&w=${w}&q=75`;
+const src = isUnsplash ? build(widths[Math.min(1, widths.length - 1)]) : image.src;
+const srcset = isUnsplash ? widths.map((w) => `${build(w)} ${w}w`).join(', ') : undefined;
+---
+
+<div
+  class:list={['media', className]}
+  style={ratio ? `aspect-ratio: ${ratio}` : undefined}
+  data-placeholder={image.placeholder ? 'true' : undefined}
+>
+  <div class="media__fallback" aria-hidden="true">
+    <Icon name="paw" size={28} strokeWidth={1.2} />
+    <span>{image.label}</span>
+  </div>
+  <img
+    src={src}
+    srcset={srcset}
+    sizes={srcset ? sizes : undefined}
+    alt={image.alt}
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : undefined}
+    decoding="async"
+    onerror="this.parentElement.classList.add('is-broken')"
+  />
+</div>
+
+<style>
+  .media {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 80% at 20% 10%, rgb(255 255 255 / 0.5), transparent 60%),
+      linear-gradient(145deg, var(--c-sand-soft), var(--c-beige));
+    isolation: isolate;
+  }
+
+  .media img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    color: transparent; /* oculta o texto alternativo enquanto carrega */
+    transition:
+      transform 1.2s var(--ease-out),
+      opacity 0.6s ease;
+  }
+
+  .media__fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.6rem;
+    color: var(--c-olive);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem;
+    opacity: 0.75;
+  }
+
+  .media.is-broken img {
+    opacity: 0;
+  }
+</style>

@@ -1,0 +1,301 @@
+---
+import { site } from '../../config/site';
+import { heroHighlights } from '../../data/content';
+import { images } from '../../data/images';
+import { whatsappLink } from '../../lib/whatsapp';
+import Button from '../ui/Button.astro';
+import GoogleBadge from '../ui/GoogleBadge.astro';
+import Icon from '../ui/Icon.astro';
+import Media from '../ui/Media.astro';
+---
+
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <p class="eyebrow" data-reveal>{site.fullName} · Joinville</p>
+      <h1 class="hero__title" id="hero-title" data-reveal style="--reveal-delay: 80ms">
+        Cuidado completo para quem faz parte da <em>sua família.</em>
+      </h1>
+      <p class="hero__lead" data-reveal style="--reveal-delay: 160ms">
+        Na {site.fullName}, seu pet encontra cuidado, conforto e atenção em todos os momentos.
+      </p>
+      <div class="hero__actions" data-reveal style="--reveal-delay: 240ms">
+        <Button href={whatsappLink('geral')} icon="whatsapp" size="lg">
+          Agendar pelo WhatsApp
+        </Button>
+        <Button href="#servicos" variant="secondary" size="lg" icon="arrow-right" iconPosition="end">
+          Conhecer nossos serviços
+        </Button>
+      </div>
+    </div>
+
+    <div class="hero__visual" data-reveal="zoom" style="--reveal-delay: 120ms">
+      <Media
+        image={images.hero}
+        eager
+        class="hero__media"
+        sizes="(min-width: 1024px) 46vw, 100vw"
+        widths={[640, 960, 1280, 1800]}
+      />
+      <div class="hero__badge">
+        <GoogleBadge />
+      </div>
+      <div class="hero__pill" aria-hidden="true">
+        <span class="pulse"></span>
+        Clínica Veterinária 24h
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <ul class="highlights" aria-label="Nossos serviços em destaque">
+      {
+        heroHighlights.map((item, index) => (
+          <li class="highlight" data-reveal style={`--reveal-delay: ${index * 80}ms`}>
+            <span class="highlight__icon">
+              <Icon name={item.icon} size={22} />
+            </span>
+            <span>
+              <strong class="highlight__title">{item.title}</strong>
+              <span class="highlight__text">{item.text}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3.5rem));
+    padding-bottom: clamp(3.5rem, 6vw, 5.5rem);
+    overflow: hidden;
+  }
+
+  .hero__glow {
+    position: absolute;
+    inset: -20% -10% auto auto;
+    width: 70vw;
+    max-width: 900px;
+    aspect-ratio: 1;
+    background: radial-gradient(closest-side, rgb(200 169 106 / 0.22), transparent);
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .hero__content {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+
+  .hero__title {
+    font-size: var(--fs-display);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    max-width: 14ch;
+  }
+
+  .hero__title em {
+    color: var(--c-primary);
+    font-weight: 400;
+  }
+
+  .hero__lead {
+    font-size: var(--fs-lead);
+    color: var(--c-muted);
+    max-width: 34rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .hero__visual {
+    position: relative;
+  }
+
+  .hero__visual :global(.hero__media) {
+    aspect-ratio: 4 / 4.4;
+    border-radius: var(--radius-xl) var(--radius-xl) var(--radius-lg) 140px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero__visual :global(.hero__media img) {
+    animation: hero-zoom 2.4s var(--ease-out) both;
+  }
+
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  .hero__badge {
+    position: absolute;
+    left: clamp(-0.5rem, -2vw, -2rem);
+    bottom: 2rem;
+    z-index: 2;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .hero__pill {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 1rem;
+    border-radius: var(--radius-pill);
+    background: rgb(31 42 31 / 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--c-cream);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .pulse {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7fd18b;
+  }
+  .pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: pulse 2s ease-out infinite;
+  }
+
+  @keyframes pulse {
+    to {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--c-line);
+  }
+
+  .highlight {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1.5rem 1rem 1.5rem 0;
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .highlight:nth-child(odd) {
+    padding-right: 1rem;
+    border-right: 1px solid var(--c-line);
+  }
+  .highlight:nth-child(even) {
+    padding-left: 1.25rem;
+  }
+
+  .highlight__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--c-olive-soft);
+    color: var(--c-primary);
+  }
+
+  .highlight__title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--c-forest);
+  }
+
+  .highlight__text {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: var(--fs-small);
+    color: var(--c-muted);
+  }
+
+  @media (min-width: 768px) {
+    .highlights {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid var(--c-line);
+    }
+    .highlight,
+    .highlight:nth-child(odd),
+    .highlight:nth-child(even) {
+      flex-direction: row;
+      align-items: center;
+      padding: 1.75rem 1.5rem;
+      border-bottom: 0;
+      border-right: 1px solid var(--c-line);
+    }
+    .highlight:first-child {
+      padding-left: 0;
+    }
+    .highlight:last-child {
+      border-right: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero__grid {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+    .hero__visual :global(.hero__media) {
+      aspect-ratio: 4 / 4.6;
+      max-height: 64svh;
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+import { services } from '../../data/content';
+import { whatsappLink } from '../../lib/whatsapp';
+import Button from '../ui/Button.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ServiceCard from '../ui/ServiceCard.astro';
+---
+
+<section class="section services" id="servicos" aria-labelledby="servicos-title">
+  <div class="container">
+    <div class="services__head">
+      <SectionHeading
+        id="servicos-title"
+        eyebrow="Nossos serviços"
+        title="Tudo o que seu pet precisa, em um só lugar."
+      />
+      <div data-reveal>
+        <Button href={whatsappLink('geral')} variant="secondary" icon="whatsapp">
+          Fale com a equipe
+        </Button>
+      </div>
+    </div>
+
+    <div class="services__grid">
+      {services.map((service, index) => <ServiceCard service={service} index={index} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--c-surface);
+    border-block: 1px solid var(--c-line);
+  }
+
+  .services__head {
+    display: grid;
+    gap: 1.75rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .services__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .services__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services__head {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+    .services__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

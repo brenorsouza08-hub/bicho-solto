@@ -1,0 +1,199 @@
+---
+import { links, site } from '../../config/site';
+import { images } from '../../data/images';
+import { whatsappLink } from '../../lib/whatsapp';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Media from '../ui/Media.astro';
+---
+
+<section class="emergency" id="clinica-24h" aria-labelledby="emergencia-title">
+  <div class="container emergency__grid">
+    <div class="emergency__content">
+      <p class="emergency__tag" data-reveal>
+        <span class="emergency__dot"></span>
+        Atendimento veterinário 24 horas
+      </p>
+      <h2 class="emergency__title" id="emergencia-title" data-reveal style="--reveal-delay: 80ms">
+        Quando seu pet precisar, <em>estamos aqui.</em>
+      </h2>
+      <p class="emergency__text" data-reveal style="--reveal-delay: 160ms">
+        Conte com atendimento veterinário em qualquer hora do dia ou da noite.
+      </p>
+      <div class="emergency__actions" data-reveal style="--reveal-delay: 240ms">
+        <Button href={whatsappLink('clinica')} variant="light" size="lg" icon="whatsapp">
+          Falar com a equipe
+        </Button>
+        <a class="emergency__phone" href={links.phone}>
+          <Icon name="phone" size={18} />
+          {site.phone.display}
+        </a>
+      </div>
+    </div>
+
+    <div class="emergency__visual" data-reveal="zoom">
+      <Media
+        image={images.emergency}
+        class="emergency__media"
+        sizes="(min-width: 1024px) 45vw, 100vw"
+      />
+      <div class="emergency__clock" aria-hidden="true">
+        <span class="emergency__24">24<small>h</small></span>
+        <span class="emergency__label">Clínica veterinária</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .emergency {
+    position: relative;
+    padding-block: var(--section-y);
+    background:
+      radial-gradient(60% 80% at 100% 0%, rgb(200 169 106 / 0.16), transparent 60%),
+      radial-gradient(50% 60% at 0% 100%, rgb(107 122 82 / 0.35), transparent 70%),
+      var(--c-forest);
+    color: var(--c-cream);
+    overflow: hidden;
+  }
+
+  .emergency__grid {
+    display: grid;
+    gap: clamp(3rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .emergency__content {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+
+  .emergency__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid rgb(200 169 106 / 0.5);
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-sand);
+  }
+
+  .emergency__dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7fd18b;
+  }
+  .emergency__dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: dot-pulse 2s ease-out infinite;
+  }
+  @keyframes dot-pulse {
+    to {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+
+  .emergency__title {
+    font-size: var(--fs-h2);
+    color: var(--c-cream);
+    max-width: 14ch;
+  }
+  .emergency__title em {
+    color: var(--c-sand);
+  }
+
+  .emergency__text {
+    font-size: var(--fs-lead);
+    color: rgb(246 242 234 / 0.75);
+    max-width: 30rem;
+  }
+
+  .emergency__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.75rem;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .emergency__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 44px;
+    font-weight: 600;
+    color: var(--c-cream);
+    text-decoration: none;
+    border-bottom: 1px solid rgb(246 242 234 / 0.3);
+    transition: border-color var(--dur) var(--ease-out);
+  }
+  .emergency__phone:hover {
+    border-color: var(--c-sand);
+  }
+
+  .emergency__visual {
+    position: relative;
+  }
+
+  .emergency__visual :global(.emergency__media) {
+    aspect-ratio: 5 / 4;
+    border-radius: var(--radius-xl);
+  }
+
+  .emergency__clock {
+    position: absolute;
+    right: 1rem;
+    bottom: -1.5rem;
+    display: grid;
+    justify-items: center;
+    padding: 1.1rem 1.5rem 1.2rem;
+    border-radius: var(--radius-lg);
+    background: var(--c-sand);
+    color: var(--c-forest);
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.6);
+  }
+
+  .emergency__24 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
+    line-height: 0.9;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+  .emergency__24 small {
+    font-size: 0.45em;
+    letter-spacing: 0;
+  }
+
+  .emergency__label {
+    margin-top: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 1024px) {
+    .emergency__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .emergency__clock {
+      right: auto;
+      left: -2.5rem;
+      bottom: 2.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,194 @@
+---
+import { links, site } from '../../config/site';
+import { testimonials } from '../../data/content';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+---
+
+<section class="section testimonials" id="depoimentos" aria-labelledby="depoimentos-title">
+  <div class="container testimonials__grid">
+    <div class="testimonials__intro">
+      <SectionHeading id="depoimentos-title" eyebrow="Depoimentos" title="Quem conhece, confia." />
+
+      <div class="reviews" data-reveal>
+        <span class="reviews__icon">
+          <Icon name="google" size={26} />
+        </span>
+        <p class="reviews__count">
+          <strong>{site.googleReviewsCount}</strong>
+          <span>avaliações no Google</span>
+        </p>
+      </div>
+
+      <div data-reveal>
+        <Button href={links.googleReviews} variant="secondary" icon="arrow-up-right" iconPosition="end">
+          Ver avaliações no Google
+        </Button>
+      </div>
+    </div>
+
+    <div class="quotes">
+      {
+        testimonials.map((item, index) => (
+          <figure class="quote" data-reveal style={`--reveal-delay: ${index * 120}ms`}>
+            <Icon name="quote" size={34} strokeWidth={1.2} class="quote__mark" />
+            <blockquote class="quote__text">
+              <p>“{item.quote}”</p>
+            </blockquote>
+            <figcaption class="quote__caption">
+              <span class="quote__avatar" aria-hidden="true">
+                <Icon name="paw" size={18} />
+              </span>
+              <span>
+                <strong>Cliente Bicho Solto</strong>
+                <span>{item.context}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .testimonials__intro {
+    display: grid;
+    gap: 2rem;
+    justify-items: start;
+  }
+
+  .reviews {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--c-white);
+    border: 1px solid var(--c-line);
+  }
+
+  .reviews__icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--c-olive-soft);
+    color: var(--c-primary);
+  }
+
+  .reviews__count {
+    display: grid;
+    line-height: 1.15;
+    color: var(--c-muted);
+  }
+
+  .reviews__count strong {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: var(--c-forest);
+    letter-spacing: -0.03em;
+  }
+
+  .quotes {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .quote {
+    position: relative;
+    display: grid;
+    gap: 1.75rem;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    border-radius: var(--radius-lg);
+    background: var(--c-white);
+    box-shadow: var(--shadow);
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .quote:nth-child(2) {
+    background: var(--c-primary);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .quote:hover {
+    transform: translateY(-4px);
+  }
+
+  .quote :global(.quote__mark) {
+    color: var(--c-sand);
+  }
+
+  .quote__text p {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 1.1rem + 1vw, 1.85rem);
+    line-height: 1.35;
+    font-weight: 400;
+    color: var(--c-forest);
+    letter-spacing: -0.01em;
+  }
+
+  .quote__caption {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--c-line);
+    font-size: var(--fs-small);
+    color: var(--c-muted);
+  }
+
+  .quote__caption > span:last-child {
+    display: grid;
+  }
+
+  .quote__caption strong {
+    color: var(--c-forest);
+    font-weight: 600;
+  }
+
+  .quote__avatar {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--c-sand-soft);
+    color: var(--c-sand-strong);
+  }
+
+  .quote:nth-child(2) .quote__text p,
+  .quote:nth-child(2) .quote__caption strong {
+    color: var(--c-cream);
+  }
+  .quote:nth-child(2) .quote__caption {
+    color: rgb(246 242 234 / 0.7);
+    border-color: rgb(246 242 234 / 0.15);
+  }
+  .quote:nth-child(2) .quote__avatar {
+    background: rgb(246 242 234 / 0.12);
+    color: var(--c-sand);
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials__grid {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+    .testimonials__intro {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
+    .quote:nth-child(2) {
+      margin-left: 4rem;
+    }
+  }
+</style>

@@ -1,0 +1,156 @@
+---
+import { fullAddress, links, navigation, site } from '../../config/site';
+import { whatsappLink } from '../../lib/whatsapp';
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <Logo tone="light" />
+        <p>{site.slogan}</p>
+        <div class="footer__social">
+          <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <Icon name="instagram" size={18} />
+          </a>
+          <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <Icon name="facebook" size={18} />
+          </a>
+          <a href={whatsappLink('geral')} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <Icon name="whatsapp" size={18} />
+          </a>
+        </div>
+      </div>
+
+      <nav class="footer__col" aria-label="Links rápidos">
+        <p class="footer__title">Links rápidos</p>
+        <ul>
+          {navigation.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <p class="footer__title">Contato</p>
+        <ul>
+          <li><a href={links.phone}>{site.phone.display}</a></li>
+          <li><a href={links.maps} target="_blank" rel="noopener noreferrer">{site.address.street} - {site.address.district}, {site.address.city} - {site.address.state}</a></li>
+          <li>Clínica Veterinária 24 horas</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© {year} {site.fullName}. Todos os direitos reservados.</p>
+      <p>{fullAddress}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: clamp(4rem, 8vw, 6rem) calc(2rem + env(safe-area-inset-bottom));
+    background: var(--c-forest);
+    color: rgb(246 242 234 / 0.72);
+    font-size: 0.95rem;
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgb(246 242 234 / 0.12);
+  }
+
+  .footer__brand {
+    display: grid;
+    gap: 1.4rem;
+    justify-items: start;
+    max-width: 22rem;
+  }
+
+  .footer__brand p {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1.45;
+    color: var(--c-cream);
+  }
+
+  .footer__social {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .footer__social a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgb(246 242 234 / 0.2);
+    color: var(--c-cream);
+    transition:
+      background-color var(--dur) var(--ease-out),
+      color var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
+  }
+
+  .footer__social a:hover {
+    background: var(--c-sand);
+    border-color: var(--c-sand);
+    color: var(--c-forest);
+  }
+
+  .footer__title {
+    margin-bottom: 1.1rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c-sand);
+  }
+
+  .footer__col ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .footer__col a {
+    display: inline-block;
+    padding-block: 0.3rem;
+    text-decoration: none;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .footer__col a:hover {
+    color: var(--c-cream);
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    padding-top: 2rem;
+    padding-bottom: 4.5rem;
+    font-size: 0.82rem;
+    color: rgb(246 242 234 / 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1.4fr 1fr 1.2fr;
+    }
+    .footer__bottom {
+      padding-bottom: 0;
+    }
+  }
+</style>
