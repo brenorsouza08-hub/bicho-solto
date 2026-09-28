@@ -24,6 +24,13 @@ Requer Node.js 22.12 ou superior.
 | Textos de serviços, pilares, etapas e depoimentos | `src/data/content.ts` |
 | **Fotos** | `src/data/images.ts` |
 | Cores, fontes, espaçamentos (design tokens) | `src/styles/global.css` |
+| Logo | `public/images/logo-bicho-solto.png` |
+
+### Identidade visual
+
+As cores seguem o logo da marca: amarelo `#F5B914`, âmbar `#E59E11` e preto `#141414`, sobre fundo off-white. Estão definidas como variáveis no início de `src/styles/global.css`.
+
+O logo em `public/images/logo-bicho-solto.png` foi recortado de uma captura do Instagram e tem baixa resolução (148 px). Para ficar mais nítido, troque pelo arquivo original em PNG com fundo transparente ou SVG, usando o mesmo nome. Depois gere de novo `public/favicon.png` e `public/apple-touch-icon.png`.
 
 ### Trocando as fotos temporárias
 

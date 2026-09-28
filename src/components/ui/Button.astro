@@ -4,7 +4,7 @@ import type { IconName } from './icons';
 
 interface Props {
   href: string;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'light' | 'outline-light';
+  variant?: 'primary' | 'secondary' | 'dark' | 'light' | 'outline-light' | 'outline-dark';
   size?: 'md' | 'lg';
   icon?: IconName;
   iconPosition?: 'start' | 'end';
@@ -38,8 +38,8 @@ const {
 
 <style>
   .btn {
-    --btn-bg: var(--c-primary);
-    --btn-fg: var(--c-on-primary);
+    --btn-bg: var(--c-yellow);
+    --btn-fg: var(--c-on-yellow);
     --btn-border: transparent;
     position: relative;
     display: inline-flex;
@@ -52,7 +52,7 @@ const {
     border: 1px solid var(--btn-border);
     background: var(--btn-bg);
     color: var(--btn-fg);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.975rem;
     letter-spacing: 0.005em;
     line-height: 1.2;
@@ -89,11 +89,11 @@ const {
   }
 
   .btn--primary {
-    box-shadow: 0 10px 24px -12px rgb(var(--c-primary-rgb) / 0.7);
+    box-shadow: 0 10px 24px -12px rgb(var(--c-yellow-rgb) / 0.7);
   }
   .btn--primary:hover {
-    --btn-bg: var(--c-primary-strong);
-    box-shadow: 0 16px 32px -14px rgb(var(--c-primary-rgb) / 0.8);
+    --btn-bg: var(--c-amber);
+    box-shadow: 0 16px 32px -14px rgb(var(--c-yellow-rgb) / 0.8);
   }
 
   .btn--secondary {
@@ -106,20 +106,29 @@ const {
     --btn-border: var(--c-ink);
   }
 
-  .btn--ghost {
-    --btn-bg: transparent;
-    --btn-fg: var(--c-primary);
-    padding-inline: 0.25rem;
-    min-height: 44px;
+  .btn--dark {
+    --btn-bg: var(--c-black);
+    --btn-fg: var(--c-cream);
+    box-shadow: 0 12px 26px -14px rgb(0 0 0 / 0.6);
   }
-  .btn--ghost:hover {
-    transform: none;
-    --btn-fg: var(--c-primary-strong);
+  .btn--dark:hover {
+    --btn-bg: var(--c-black-soft);
+    --btn-fg: var(--c-accent);
+  }
+
+  .btn--outline-dark {
+    --btn-bg: transparent;
+    --btn-fg: var(--c-black);
+    --btn-border: rgb(20 20 20 / 0.35);
+  }
+  .btn--outline-dark:hover {
+    --btn-border: var(--c-black);
+    --btn-bg: rgb(20 20 20 / 0.06);
   }
 
   .btn--light {
     --btn-bg: var(--c-cream);
-    --btn-fg: var(--c-forest);
+    --btn-fg: var(--c-black);
   }
   .btn--light:hover {
     --btn-bg: #fff;
@@ -129,15 +138,15 @@ const {
   .btn--outline-light {
     --btn-bg: transparent;
     --btn-fg: var(--c-cream);
-    --btn-border: rgb(246 242 234 / 0.35);
+    --btn-border: rgb(250 247 240 / 0.35);
   }
   .btn--outline-light:hover {
     --btn-border: var(--c-cream);
-    --btn-bg: rgb(246 242 234 / 0.08);
+    --btn-bg: rgb(250 247 240 / 0.08);
   }
 
   @media (max-width: 479px) {
-    .btn:not(.btn--ghost) {
+    .btn {
       width: 100%;
     }
   }

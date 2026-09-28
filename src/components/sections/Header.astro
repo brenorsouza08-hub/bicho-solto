@@ -61,7 +61,7 @@ import Logo from '../ui/Logo.astro';
 
   .header.is-scrolled,
   .header.is-menu-open {
-    background: rgb(246 242 234 / 0.86);
+    background: rgb(250 247 240 / 0.86);
     backdrop-filter: saturate(1.4) blur(14px);
     -webkit-backdrop-filter: saturate(1.4) blur(14px);
     box-shadow: 0 1px 0 var(--c-line);
@@ -129,7 +129,8 @@ import Logo from '../ui/Logo.astro';
     border-bottom: 1px solid var(--c-line);
     font-family: var(--font-display);
     font-size: 1.75rem;
-    color: var(--c-forest);
+    font-weight: 700;
+    color: var(--c-black);
     text-decoration: none;
   }
 
@@ -160,7 +161,7 @@ import Logo from '../ui/Logo.astro';
     display: block;
     width: 18px;
     height: 1.5px;
-    background: var(--c-forest);
+    background: var(--c-black);
     border-radius: 2px;
     transition: transform var(--dur) var(--ease-out);
   }
@@ -216,9 +217,10 @@ import Logo from '../ui/Logo.astro';
       position: absolute;
       left: 0.85rem;
       right: 0.85rem;
-      bottom: 8px;
-      height: 1px;
-      background: var(--c-sand-strong);
+      bottom: 6px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--c-yellow);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform var(--dur) var(--ease-out);
@@ -226,7 +228,7 @@ import Logo from '../ui/Logo.astro';
 
     .nav__link:hover,
     .nav__link:global(.is-active) {
-      color: var(--c-primary);
+      color: var(--c-black);
     }
 
     .nav__link:hover::after,

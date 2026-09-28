@@ -21,7 +21,7 @@ import Media from '../ui/Media.astro';
         Conte com atendimento veterinário em qualquer hora do dia ou da noite.
       </p>
       <div class="emergency__actions" data-reveal style="--reveal-delay: 240ms">
-        <Button href={whatsappLink('clinica')} variant="light" size="lg" icon="whatsapp">
+        <Button href={whatsappLink('clinica')} size="lg" icon="whatsapp">
           Falar com a equipe
         </Button>
         <a class="emergency__phone" href={links.phone}>
@@ -50,9 +50,9 @@ import Media from '../ui/Media.astro';
     position: relative;
     padding-block: var(--section-y);
     background:
-      radial-gradient(60% 80% at 100% 0%, rgb(200 169 106 / 0.16), transparent 60%),
-      radial-gradient(50% 60% at 0% 100%, rgb(107 122 82 / 0.35), transparent 70%),
-      var(--c-forest);
+      radial-gradient(60% 80% at 100% 0%, rgb(245 185 20 / 0.14), transparent 60%),
+      radial-gradient(50% 60% at 0% 100%, rgb(229 158 17 / 0.1), transparent 70%),
+      var(--c-black);
     color: var(--c-cream);
     overflow: hidden;
   }
@@ -74,13 +74,13 @@ import Media from '../ui/Media.astro';
     align-items: center;
     gap: 0.7rem;
     padding: 0.6rem 1.1rem;
-    border: 1px solid rgb(200 169 106 / 0.5);
+    border: 1px solid rgb(245 185 20 / 0.5);
     border-radius: var(--radius-pill);
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--c-sand);
+    color: var(--c-accent);
   }
 
   .emergency__dot {
@@ -111,12 +111,13 @@ import Media from '../ui/Media.astro';
     max-width: 14ch;
   }
   .emergency__title em {
-    color: var(--c-sand);
+    font-style: normal;
+    color: var(--c-accent);
   }
 
   .emergency__text {
     font-size: var(--fs-lead);
-    color: rgb(246 242 234 / 0.75);
+    color: rgb(250 247 240 / 0.75);
     max-width: 30rem;
   }
 
@@ -137,11 +138,11 @@ import Media from '../ui/Media.astro';
     font-weight: 600;
     color: var(--c-cream);
     text-decoration: none;
-    border-bottom: 1px solid rgb(246 242 234 / 0.3);
+    border-bottom: 1px solid rgb(250 247 240 / 0.3);
     transition: border-color var(--dur) var(--ease-out);
   }
   .emergency__phone:hover {
-    border-color: var(--c-sand);
+    border-color: var(--c-accent);
   }
 
   .emergency__visual {
@@ -161,8 +162,8 @@ import Media from '../ui/Media.astro';
     justify-items: center;
     padding: 1.1rem 1.5rem 1.2rem;
     border-radius: var(--radius-lg);
-    background: var(--c-sand);
-    color: var(--c-forest);
+    background: radial-gradient(circle at 40% 30%, var(--c-accent), var(--c-yellow) 60%, var(--c-amber));
+    color: var(--c-black);
     box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.6);
   }
 
@@ -170,7 +171,7 @@ import Media from '../ui/Media.astro';
     font-family: var(--font-display);
     font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
     line-height: 0.9;
-    font-weight: 500;
+    font-weight: 800;
     letter-spacing: -0.04em;
   }
   .emergency__24 small {

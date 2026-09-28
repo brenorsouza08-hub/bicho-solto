@@ -3,35 +3,35 @@
    ========================================================================== */
 
 :root {
-  /* Paleta */
-  --c-forest: #1f2a1f;          /* verde muito escuro — títulos, fundos escuros */
-  --c-forest-2: #263325;
-  --c-primary: #3d4a2f;         /* verde oliva — cor principal */
-  --c-primary-rgb: 61 74 47;
-  --c-primary-strong: #2f3a24;
-  --c-olive: #6b7a52;
-  --c-olive-soft: #e3e6d6;
-  --c-on-primary: #f8f5ee;
+  /* Paleta — cores oficiais da marca (logo Bicho Solto) */
+  --c-yellow: #f5b914;          /* amarelo da marca — cor principal */
+  --c-yellow-rgb: 245 185 20;
+  --c-amber: #e59e11;           /* âmbar — borda do logo, hover */
+  --c-accent: #ffc72c;          /* amarelo vivo — destaques sobre fundo escuro */
+  --c-accent-text: #8a5d00;     /* âmbar escuro — textos pequenos sobre fundo claro */
+  --c-yellow-soft: #fff0c2;
+  --c-yellow-softer: #fdf5de;
+  --c-gold-muted: #9a7424;
+  --c-on-yellow: #141414;
 
-  --c-cream: #f6f2ea;           /* fundo off-white */
-  --c-beige: #ece4d4;
-  --c-surface: #fbf9f4;
+  --c-black: #141414;           /* preto da marca — títulos, fundos escuros */
+  --c-black-soft: #1f1e1b;
+
+  --c-cream: #faf7f0;           /* fundo off-white */
+  --c-warm: #f3eee3;
+  --c-surface: #fffdf8;
   --c-white: #ffffff;
 
-  --c-sand: #c8a96a;            /* detalhes dourado / areia */
-  --c-sand-strong: #a8894c;
-  --c-sand-soft: #f1e7d2;
-
-  --c-ink: #1c211b;
-  --c-muted: #5f6558;
-  --c-line: rgb(31 42 31 / 0.1);
-  --c-line-strong: rgb(31 42 31 / 0.22);
+  --c-ink: #161616;
+  --c-muted: #5c5a55;
+  --c-line: rgb(20 20 20 / 0.1);
+  --c-line-strong: rgb(20 20 20 / 0.22);
 
   /* Tipografia */
-  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Manrope Variable', system-ui, sans-serif;
   --font-body: 'Manrope Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --fs-display: clamp(2.5rem, 1.6rem + 4.2vw, 5rem);
+  --fs-display: clamp(2.4rem, 1.6rem + 3.6vw, 4.4rem);
   --fs-h2: clamp(2rem, 1.45rem + 2.4vw, 3.4rem);
   --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
   --fs-lead: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
@@ -51,9 +51,9 @@
   --radius-pill: 999px;
 
   /* Sombras suaves */
-  --shadow-sm: 0 2px 8px -2px rgb(31 42 31 / 0.08);
-  --shadow: 0 18px 40px -24px rgb(31 42 31 / 0.28);
-  --shadow-lg: 0 40px 80px -40px rgb(31 42 31 / 0.4);
+  --shadow-sm: 0 2px 8px -2px rgb(20 20 20 / 0.08);
+  --shadow: 0 18px 40px -24px rgb(20 20 20 / 0.28);
+  --shadow-lg: 0 40px 80px -40px rgb(20 20 20 / 0.4);
 
   /* Movimento */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -119,18 +119,48 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: var(--c-forest);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: var(--c-black);
   font-optical-sizing: auto;
   text-wrap: balance;
 }
 
 h3 {
   font-size: var(--fs-h3);
+  font-weight: 650;
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+}
+
+/* Marca-texto amarelo: destaque de palavras nos títulos */
+.highlight-mark {
+  position: relative;
+  font-style: normal;
+  white-space: nowrap;
+  z-index: 0;
+}
+.highlight-mark::after {
+  content: '';
+  position: absolute;
+  left: -0.06em;
+  right: -0.06em;
+  bottom: 0.06em;
+  height: 0.36em;
+  background: var(--c-yellow);
+  border-radius: 4px;
+  z-index: -1;
+  transform-origin: left;
+}
+.js .is-visible .highlight-mark::after,
+.js .is-visible.highlight-mark::after {
+  animation: mark-in 0.9s var(--ease-out) 0.35s both;
+}
+@keyframes mark-in {
+  from {
+    transform: scaleX(0);
+  }
 }
 
 p {
@@ -142,12 +172,12 @@ em {
 }
 
 ::selection {
-  background: var(--c-sand);
-  color: var(--c-forest);
+  background: var(--c-accent);
+  color: var(--c-black);
 }
 
 :focus-visible {
-  outline: 2px solid var(--c-sand-strong);
+  outline: 2px solid var(--c-accent-text);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -167,10 +197,10 @@ em {
   align-items: center;
   gap: 0.75rem;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--c-sand-strong);
+  color: var(--c-accent-text);
 }
 
 .eyebrow::before {
@@ -199,7 +229,7 @@ em {
   z-index: 100;
   padding: 0.75rem 1.1rem;
   border-radius: var(--radius-sm);
-  background: var(--c-forest);
+  background: var(--c-black);
   color: var(--c-cream);
   font-weight: 600;
   transform: translateY(-160%);

@@ -16,7 +16,7 @@ import Media from '../ui/Media.astro';
     <div class="hero__content">
       <p class="eyebrow" data-reveal>{site.fullName} · Joinville</p>
       <h1 class="hero__title" id="hero-title" data-reveal style="--reveal-delay: 80ms">
-        Cuidado completo para quem faz parte da <em>sua família.</em>
+        Cuidado completo para quem faz parte da <span class="highlight-mark">sua família.</span>
       </h1>
       <p class="hero__lead" data-reveal style="--reveal-delay: 160ms">
         Na {site.fullName}, seu pet encontra cuidado, conforto e atenção em todos os momentos.
@@ -82,7 +82,7 @@ import Media from '../ui/Media.astro';
     width: 70vw;
     max-width: 900px;
     aspect-ratio: 1;
-    background: radial-gradient(closest-side, rgb(200 169 106 / 0.22), transparent);
+    background: radial-gradient(closest-side, rgb(245 185 20 / 0.22), transparent);
     pointer-events: none;
   }
 
@@ -101,15 +101,10 @@ import Media from '../ui/Media.astro';
 
   .hero__title {
     font-size: var(--fs-display);
-    font-weight: 400;
-    line-height: 1.02;
-    letter-spacing: -0.035em;
-    max-width: 14ch;
-  }
-
-  .hero__title em {
-    color: var(--c-primary);
-    font-weight: 400;
+    font-weight: 750;
+    line-height: 1;
+    letter-spacing: -0.045em;
+    max-width: 15ch;
   }
 
   .hero__lead {
@@ -128,6 +123,20 @@ import Media from '../ui/Media.astro';
 
   .hero__visual {
     position: relative;
+    isolation: isolate;
+  }
+
+  /* Círculo amarelo — referência direta ao logo da marca */
+  .hero__visual::before {
+    content: '';
+    position: absolute;
+    top: -6%;
+    right: -12%;
+    width: 78%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, var(--c-accent), var(--c-yellow) 55%, var(--c-amber));
+    z-index: -1;
   }
 
   .hero__visual :global(.hero__media) {
@@ -167,7 +176,7 @@ import Media from '../ui/Media.astro';
     gap: 0.55rem;
     padding: 0.55rem 1rem;
     border-radius: var(--radius-pill);
-    background: rgb(31 42 31 / 0.78);
+    background: rgb(20 20 20 / 0.78);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     color: var(--c-cream);
@@ -240,17 +249,17 @@ import Media from '../ui/Media.astro';
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: var(--c-olive-soft);
-    color: var(--c-primary);
+    background: var(--c-yellow);
+    color: var(--c-black);
   }
 
   .highlight__title {
     display: block;
     font-family: var(--font-display);
     font-size: 1.3rem;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1.2;
-    color: var(--c-forest);
+    color: var(--c-black);
   }
 
   .highlight__text {

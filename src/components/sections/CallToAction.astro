@@ -12,16 +12,16 @@ import Media from '../ui/Media.astro';
       <div class="cta__content">
         <p class="eyebrow cta__eyebrow">Vamos conversar</p>
         <h2 class="cta__title" id="cta-title">
-          Seu pet merece ser cuidado por quem <em>entende de cuidado.</em>
+          Seu pet merece ser cuidado por quem <span class="cta__mark">entende de cuidado.</span>
         </h2>
         <p class="cta__text">
           Entre em contato com a {site.fullName} e conheça nossos serviços.
         </p>
         <div class="cta__actions">
-          <Button href={whatsappLink('geral')} variant="light" size="lg" icon="whatsapp">
+          <Button href={whatsappLink('geral')} variant="dark" size="lg" icon="whatsapp">
             Falar pelo WhatsApp
           </Button>
-          <Button href={site.social.instagram} variant="outline-light" size="lg" icon="instagram">
+          <Button href={site.social.instagram} variant="outline-dark" size="lg" icon="instagram">
             Conhecer o Instagram
           </Button>
         </div>
@@ -43,9 +43,10 @@ import Media from '../ui/Media.astro';
     display: grid;
     border-radius: var(--radius-xl);
     background:
-      radial-gradient(70% 90% at 0% 0%, rgb(200 169 106 / 0.18), transparent 60%),
-      var(--c-primary);
-    color: var(--c-cream);
+      radial-gradient(80% 110% at 0% 0%, var(--c-accent), transparent 60%),
+      radial-gradient(60% 90% at 100% 100%, var(--c-amber), transparent 70%),
+      var(--c-yellow);
+    color: var(--c-black);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
   }
@@ -58,22 +59,28 @@ import Media from '../ui/Media.astro';
   }
 
   .cta__eyebrow {
-    color: var(--c-sand);
+    color: var(--c-black);
   }
 
   .cta__title {
     font-size: var(--fs-h2);
-    color: var(--c-cream);
+    color: var(--c-black);
     max-width: 16ch;
   }
 
-  .cta__title em {
-    color: var(--c-sand);
+  .cta__mark {
+    display: inline;
+    padding: 0 0.18em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    border-radius: 8px;
+    background: var(--c-black);
+    color: var(--c-accent);
   }
 
   .cta__text {
     font-size: var(--fs-lead);
-    color: rgb(246 242 234 / 0.78);
+    color: rgb(20 20 20 / 0.78);
     max-width: 32rem;
   }
 
